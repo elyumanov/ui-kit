@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, PropType } from 'vue';
+import { defineProps, PropType } from 'vue'
 
 const props = defineProps({
   disabled: {
@@ -8,51 +8,113 @@ const props = defineProps({
   },
   size: {
     type: String as PropType<'small' | 'medium' | 'large'>,
-    default: 'medium',
+    default: 'small',
   },
   color: {
     type: String as PropType<'primary' | 'secondary'>,
     default: 'primary',
   },
-});
+  label: {
+    type: String,
+    default: undefined,
+  },
+  icon: {
+    type: String,
+    default: undefined,
+  },
+})
 </script>
 
 <template>
-  <button class="button" :class="[props.size, props.color]" :disabled="props.disabled">
-    <slot name="left-icon" />
+  <button class="l-button" :class="[`l-button--${props.size}`, `l-button--${props.color}`]" :disabled="props.disabled">
+    <slot name="prepend" />
+    <span class="l-button__item">
+      <span v-if="props.label" class="l-button__label">{{ props.label }}</span>
+      <i v-if="props.icon" class="l-button__icon" role="img">{{ props.icon }}</i>
+    </span>
     <slot />
-    <slot name="right-icon" />
+    <slot name="append" />
   </button>
 </template>
 
-<style scoped>
-.button {
+<style lang="scss" scoped>
+.l-button {
   color: #ffffff;
   outline: none;
   border: none;
   padding: 0 16px;
-}
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  min-width: fit-content;
 
-.small {
-  height: 32px;
-  border-radius: 8px;
-}
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 
-.medium {
-  height: 36px;
-  border-radius: 10px;
-}
+  &__label {
+    display: inline-block;
+  }
 
-.large {
-  height: 40px;
-  border-radius: 12px;
-}
+  &__icon {
+    font-style: normal;
+    text-transform: none;
+    font-size: 16px;
+    line-height: 1;
+  }
 
-.primary {
-  background: #535bf2;
-}
+  // Модификаторы размера
+  &--small {
+    height: 32px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
 
-.secondary {
-  background: #a7a7a7;
+  &--medium {
+    height: 36px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  &--large {
+    height: 40px;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+
+  // Модификаторы цвета
+  &--primary {
+    background: #535bf2;
+
+    &:hover:not(:disabled) {
+      background: #4a4fd8;
+    }
+  }
+
+  &--secondary {
+    background: #a7a7a7;
+
+    &:hover:not(:disabled) {
+      background: #959595;
+    }
+  }
+
+  // Состояния
+  &:hover:not(:disabled) {
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
 }
 </style>
