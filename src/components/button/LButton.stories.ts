@@ -1,9 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/vue3-vite'
-import Button from './Button.vue'
+import LButton from './LButton.vue'
 
 export default {
   title: 'Button',
-  component: Button,
+  component: LButton,
   argTypes: {
     disabled: {
       control: { type: 'boolean' },
@@ -38,28 +38,28 @@ export default {
       },
     },
   },
-} as Meta<typeof Button>
+} as Meta<typeof LButton>
 
-const Template: StoryFn<typeof Button> = (args) => ({
-  components: { Button },
+const Template: StoryFn<typeof LButton> = (args) => ({
+  components: { LButton },
   setup() {
     return { args }
   },
   template: `
     <div style="display: flex; flex-direction: row; gap: 12px;">
-      <Button v-bind="args" size="large"  />
-      <Button v-bind="args" size="medium" />
-      <Button v-bind="args" size="small"  />
+      <LButton v-bind="args" size="large"  />
+      <LButton v-bind="args" size="medium" />
+      <LButton v-bind="args" size="small"  />
     </div>
   `,
 })
 
-export const DefaultButton: StoryFn<typeof Button> = (args) => ({
-  components: { Button },
+export const DefaultButton: StoryFn<typeof LButton> = (args) => ({
+  components: { LButton },
   setup() {
     return { args }
   },
-  template: '<Button v-bind="args" />',
+  template: '<LButton v-bind="args" />',
 })
 DefaultButton.args = {
   label: 'Кнопка',

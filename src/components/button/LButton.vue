@@ -26,7 +26,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <button class="l-button" :class="[`l-button--${props.size}`, `l-button--${props.color}`]" :disabled="props.disabled">
+  <button
+    class="l-button hoverable"
+    :class="[`l-button--${props.size}`, `l-button--${props.color}`]"
+    :disabled="props.disabled"
+  >
     <slot name="prepend" />
     <span class="l-button__item">
       <span v-if="props.label" class="l-button__label">{{ props.label }}</span>
@@ -91,19 +95,13 @@ const props = defineProps({
 
   // Модификаторы цвета
   &--primary {
-    background: #535bf2;
-
-    &:hover:not(:disabled) {
-      background: #4a4fd8;
-    }
+    background: var(--color-primary);
   }
 
   &--secondary {
-    background: #a7a7a7;
-
-    &:hover:not(:disabled) {
-      background: #959595;
-    }
+    background: none;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
   }
 
   // Состояния
